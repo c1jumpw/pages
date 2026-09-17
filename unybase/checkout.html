@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Checkout — UnyBase</title>
+<meta name="description" content="Confirm your UnyBase plan and billing cycle." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo-link" href="index.html" aria-label="UnyBase home">
+      <img src="assets/logo.png" alt="UnyBase" />
+    </a>
+    <div class="header-actions">
+      <a class="btn btn-outline" href="index.html#pricing">Change plan</a>
+    </div>
+  </div>
+</header>
+
+<main class="checkout-shell" data-checkout-root>
+  <div class="checkout-card">
+    <a class="checkout-back" href="index.html#pricing">← Back to pricing</a>
+
+    <h1>You're almost set up.</h1>
+    <p class="checkout-sub">Confirm your plan and billing cycle below. You can switch between monthly and yearly anytime.</p>
+
+    <div class="order-summary">
+      <div class="order-summary-label">Your Plan</div>
+
+      <div class="order-plan-row">
+        <div>
+          <div class="order-plan-name" data-role="plan-name">Standard</div>
+          <p class="order-plan-desc" data-role="plan-desc">Single web apps and early-stage products.</p>
+        </div>
+      </div>
+
+      <div class="billing-toggle" role="group" aria-label="Billing cycle">
+        <button type="button" data-cycle="monthly" class="is-active">Monthly</button>
+        <button type="button" data-cycle="yearly">Yearly</button>
+      </div>
+
+      <div class="order-price-row">
+        <span class="amount" data-role="amount">$29</span>
+        <span class="cycle" data-role="cycle">/month</span>
+      </div>
+    </div>
+
+    <a class="btn btn-amber btn-block" style="margin-top:24px;" href="#" data-role="complete-setup" aria-disabled="true">Complete Setup</a>
+    <p class="checkout-sub" style="margin-top:10px; font-size:0.82rem; display:none;" data-role="placeholder-note">Payment link not connected yet — this button is a placeholder until a Stripe Payment Link (or System.io checkout) is added in js/config.js.</p>
+
+    <p class="trust-line">Cancel anytime. Your backend, your control.</p>
+  </div>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
