@@ -1,1 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UnyBase — One base. Every app you build.</title>
+<meta name="description" content="UnyBase is the managed backend behind your web and mobile apps — database, authentication, file storage, realtime updates, and server-side functions, unified into a single subscription." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo-link" href="#top" aria-label="UnyBase home">
+      <img src="assets/logo.png" alt="UnyBase" />
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a class="nav-item" href="#features">Features</a>
+      <a class="nav-item" href="#pricing">Pricing</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-amber" href="checkout.html?plan=standard&cycle=monthly">Get Started</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1>One base.<br />Every app you build.</h1>
+        <p class="hero-sub">UnyBase is the backend behind your web and mobile apps — database, authentication, file storage, realtime updates, and server-side functions, unified into a single subscription. You focus on the product. We handle what runs underneath it.</p>
+        <div class="hero-actions">
+          <a class="btn btn-amber" href="checkout.html?plan=standard&cycle=monthly">Get Started</a>
+        </div>
+        <p class="hero-secondary-line">No engineering team required. No juggling five different dashboards.</p>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="stack-diagram">
+          <div class="stack-band" style="--w: 58%;"><span class="stack-band-row"><span class="dot"></span>Server-side functions</span></div>
+          <div class="stack-band" style="--w: 68%;"><span class="stack-band-row"><span class="dot"></span>Realtime updates</span></div>
+          <div class="stack-band" style="--w: 78%;"><span class="stack-band-row"><span class="dot"></span>File storage</span></div>
+          <div class="stack-band" style="--w: 89%;"><span class="stack-band-row"><span class="dot"></span>Authentication</span></div>
+          <div class="stack-band" style="--w: 100%;"><span class="stack-band-row"><span class="dot"></span>Database</span></div>
+          <div class="stack-base">UnyBase</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Problem -->
+  <section class="section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Running a modern app shouldn't mean managing five different backend bills.</h2>
+      </div>
+      <p class="problem-body">Every serious app needs a database, authentication, file storage, realtime updates, and server-side functions — each with its own login, its own pricing tiers, and its own learning curve. Most teams end up wiring together multiple backend tools just to keep things running. UnyBase replaces the wiring with one clean subscription.</p>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Everything your app's backend needs, under one roof.</h2>
+        <p>UnyBase wraps the backend your app depends on into a single, managed service. We handle the database, authentication, file storage, realtime updates, and server-side functions behind the scenes, so you get a production-ready foundation without needing to become a backend expert. Whether you're launching your first product or scaling an existing one, UnyBase keeps everything connected, monitored, and running.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-panel">
+          <div class="feature-mark">DB</div>
+          <h3>Unified backend</h3>
+          <p>Database, authentication, storage, and realtime, managed as one system instead of five separate accounts.</p>
+        </div>
+        <div class="feature-panel">
+          <div class="feature-mark">{ }</div>
+          <h3>Built for builders</h3>
+          <p>Whether you're a founder, a small team, or working with a developer, UnyBase keeps your app's foundation simple to understand and easy to trust.</p>
+        </div>
+        <div class="feature-panel">
+          <div class="feature-mark">⟳</div>
+          <h3>Real support, not just tools</h3>
+          <p>When something needs attention, you're not stuck reading documentation at midnight. We help diagnose and resolve issues on your app's backend directly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="section-alt">
+    <div class="wrap">
+      <div class="pricing-head-row">
+        <div class="section-head">
+          <h2>Simple pricing. No surprise invoices.</h2>
+        </div>
+        <div class="billing-toggle" role="group" aria-label="Billing cycle">
+          <button type="button" data-cycle="monthly" class="is-active">Monthly</button>
+          <button type="button" data-cycle="yearly">Yearly (save with annual billing)</button>
+        </div>
+      </div>
+
+      <div class="plan-grid">
+
+        <div class="plan-card" data-plan="standard">
+          <div class="plan-name">Standard</div>
+          <p class="plan-for">Best for: Single web apps and early-stage products.</p>
+          <div class="plan-price">
+            <span class="amount" data-role="amount">$29</span>
+            <span class="cycle" data-role="cycle">/month</span>
+          </div>
+          <p class="plan-yearly-note" data-role="yearlynote"></p>
+          <ul class="plan-list">
+            <li>Managed database &amp; authentication</li>
+            <li>File storage</li>
+            <li>Realtime updates &amp; server-side functions</li>
+            <li>Community and email support</li>
+            <li>Monthly usage monitoring</li>
+          </ul>
+          <a class="btn btn-outline btn-block" data-role="choose" href="checkout.html?plan=standard&cycle=monthly">Choose Plan</a>
+        </div>
+
+        <div class="plan-card is-premium" data-plan="premium">
+          <div class="plan-name">Premium</div>
+          <p class="plan-for">Best for: Growing products and teams running multiple apps.</p>
+          <div class="plan-price">
+            <span class="amount" data-role="amount">$59</span>
+            <span class="cycle" data-role="cycle">/month</span>
+          </div>
+          <p class="plan-yearly-note" data-role="yearlynote"></p>
+          <ul class="plan-list">
+            <li>Everything in Standard</li>
+            <li>Expanded resource limits</li>
+            <li>Priority infrastructure support</li>
+            <li>Proactive diagnostics on app performance</li>
+            <li>Faster response times</li>
+            <li>Priority access to new UnyBase features</li>
+          </ul>
+          <a class="btn btn-amber btn-block" data-role="choose" href="checkout.html?plan=premium&cycle=monthly">Choose Plan</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-logo"><img src="assets/logo.png" alt="UnyBase" /></div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#">Contact</a>
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </nav>
+    <p class="footer-copy">© 2026 UnyBase. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
