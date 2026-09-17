@@ -6,6 +6,7 @@
 <title>Checkout — UnyBase</title>
 <meta name="description" content="Confirm your UnyBase plan and billing cycle." />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
+<script>document.documentElement.classList.add('js');</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -25,7 +26,7 @@
 </header>
 
 <main class="checkout-shell" data-checkout-root>
-  <div class="checkout-card">
+  <div class="checkout-card reveal">
     <a class="checkout-back" href="index.html#pricing">← Back to pricing</a>
 
     <h1>You're almost set up.</h1>
@@ -47,13 +48,14 @@
       </div>
 
       <div class="order-price-row">
-        <span class="amount" data-role="amount">$29</span>
+        <span class="amount" data-role="amount">$29.95</span>
         <span class="cycle" data-role="cycle">/month</span>
       </div>
+      <p class="plan-yearly-note" data-role="yearlynote" style="text-align:right;"></p>
     </div>
 
     <a class="btn btn-amber btn-block" style="margin-top:24px;" href="#" data-role="complete-setup" aria-disabled="true">Complete Setup</a>
-    <p class="checkout-sub" style="margin-top:10px; font-size:0.82rem; display:none;" data-role="placeholder-note">Payment link not connected yet — this button is a placeholder until a Stripe Payment Link (or System.io checkout) is added in js/config.js.</p>
+    <p class="checkout-sub" style="margin-top:10px; font-size:0.82rem; display:none;" data-role="placeholder-note">Payment link not available for this plan yet — check back shortly.</p>
 
     <p class="trust-line">Cancel anytime. Your backend, your control.</p>
   </div>

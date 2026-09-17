@@ -8,11 +8,92 @@
   var CONFIG = window.UNYBASE_CONFIG;
 
   function money(n) {
-    return "$" + Number(n).toLocaleString("en-US");
+    var num = Number(n);
+    var hasCents = Math.round(num * 100) % 100 !== 0;
+    return "$" + num.toLocaleString("en-US", {
+      minimumFractionDigits: hasCents ? 2 : 0,
+      maximumFractionDigits: 2,
+    });
   }
 
   function monthlyEquivalent(yearly) {
-    return (yearly / 12).toFixed(2).replace(/\.00$/, "");
+    return yearly / 12;
+  }
+
+  function savingsPercent(plan) {
+    var fullYear = plan.monthly * 12;
+    var saved = fullYear - plan.yearly;
+    return Math.round((saved / fullYear) * 100);
+  }
+
+  function yearlyNoteHTML(plan) {
+    var pct = savingsPercent(plan);
+    return (
+      '<span class="was">' + money(plan.monthly) + "/mo</span>" +
+      money(plan.yearly) + " billed yearly" +
+      '<span class="save-badge">Save ' + pct + "%</span>"
+    );
+  }
+
+  function yearlyNoteCompactHTML(plan) {
+    var pct = savingsPercent(plan);
+    return (
+      '<span class="was">' + money(plan.monthly) + "/mo</span>" +
+      '<span class="save-badge">Save ' + pct + "%</span>"
+    );
+  }
+
+  /* ---------------- Scroll reveal ---------------- */
+
+  function initReveal() {
+    var items = document.querySelectorAll(".reveal");
+    if (!items.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    items.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------------- Mobile nav toggle ---------------- */
+
+  function initMobileNav() {
+    var toggle = document.querySelector(".nav-toggle");
+    var panel = document.getElementById("mobile-nav");
+    if (!toggle || !panel) return;
+
+    function close() {
+      toggle.setAttribute("aria-expanded", "false");
+      panel.classList.remove("is-open");
+    }
+
+    toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", open ? "false" : "true");
+      panel.classList.toggle("is-open", !open);
+    });
+
+    panel.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", close);
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 860) close();
+    });
   }
 
   /* ---------------- Landing page pricing toggle ---------------- */
@@ -43,11 +124,11 @@
         if (cycle === "yearly") {
           amountEl.textContent = money(monthlyEquivalent(plan.yearly));
           cycleEl.textContent = "/month";
-          noteEl.textContent = money(plan.yearly) + " billed yearly";
+          noteEl.innerHTML = yearlyNoteHTML(plan);
         } else {
           amountEl.textContent = money(plan.monthly);
           cycleEl.textContent = "/month";
-          noteEl.textContent = "";
+          noteEl.innerHTML = "";
         }
 
         if (chooseEl) {
@@ -72,7 +153,7 @@
     if (!root) return;
 
     var params = new URLSearchParams(window.location.search);
-    var planKey = params.get("plan") in CONFIG.plans ? params.get("plan") : "standard";
+    var planKey = params.get("plan") in CONFIG.plans ? params.get("plan") : "basic";
     var cycle = params.get("cycle") === "yearly" ? "yearly" : "monthly";
 
     var toggle = root.querySelector(".billing-toggle");
@@ -81,15 +162,9 @@
     var descEl = root.querySelector('[data-role="plan-desc"]');
     var amountEl = root.querySelector('[data-role="amount"]');
     var cycleEl = root.querySelector('[data-role="cycle"]');
+    var noteEl = root.querySelector('[data-role="yearlynote"]');
     var completeBtn = root.querySelector('[data-role="complete-setup"]');
     var placeholderNote = root.querySelector('[data-role="placeholder-note"]');
-
-    var urlKeyMap = {
-      standard_monthly: "standardMonthly",
-      standard_yearly: "standardYearly",
-      premium_monthly: "premiumMonthly",
-      premium_yearly: "premiumYearly",
-    };
 
     function render() {
       var plan = CONFIG.plans[planKey];
@@ -104,13 +179,14 @@
       if (cycle === "yearly") {
         amountEl.textContent = money(plan.yearly);
         cycleEl.textContent = "/year";
+        if (noteEl) noteEl.innerHTML = yearlyNoteCompactHTML(plan);
       } else {
         amountEl.textContent = money(plan.monthly);
         cycleEl.textContent = "/month";
+        if (noteEl) noteEl.innerHTML = "";
       }
 
-      var configKey = urlKeyMap[planKey + "_" + cycle];
-      var checkoutUrl = CONFIG.checkoutUrls[configKey];
+      var checkoutUrl = CONFIG.checkoutUrls[planKey];
 
       if (checkoutUrl) {
         completeBtn.href = checkoutUrl;
@@ -145,6 +221,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    initReveal();
+    initMobileNav();
     initPricingSection();
     initCheckoutPage();
   });

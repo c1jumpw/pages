@@ -30,7 +30,7 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; }
 
 body {
   margin: 0;
@@ -48,6 +48,26 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+/* ---------- Scroll reveal (progressive enhancement) ----------
+   Elements are fully visible by default. Only when JS has run
+   (html.js) do they start hidden and fade/rise into place as
+   they enter the viewport. No JS = no animation, content shows
+   immediately either way. */
+
+.reveal { opacity: 1; transform: none; }
+
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.65s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+html.js .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+html.js .feature-panel.reveal:nth-child(2) { transition-delay: 0.08s; }
+html.js .feature-panel.reveal:nth-child(3) { transition-delay: 0.16s; }
+html.js .plan-grid .plan-card.reveal:nth-child(2) { transition-delay: 0.1s; }
 
 :focus-visible {
   outline: 2px solid var(--amber);
@@ -155,6 +175,61 @@ p { margin: 0; }
 .nav-links a.nav-item:hover { color: var(--paper); }
 
 .header-actions { display: flex; align-items: center; gap: 20px; }
+
+.nav-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.nav-toggle span,
+.nav-toggle span::before,
+.nav-toggle span::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 2px;
+  background: var(--paper);
+  position: relative;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-toggle span::before { position: absolute; top: -5px; }
+.nav-toggle span::after { position: absolute; top: 5px; }
+
+.nav-toggle[aria-expanded="true"] span { background: transparent; }
+.nav-toggle[aria-expanded="true"] span::before { transform: translateY(5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span::after { transform: translateY(-5px) rotate(-45deg); }
+
+.mobile-nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--ink-2);
+  border-bottom: 1px solid var(--line);
+  padding: 18px var(--pad) 26px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-nav.is-open { display: flex; }
+
+.mobile-nav a.nav-item {
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line);
+  color: var(--paper);
+  font-size: 1rem;
+}
+
+.mobile-nav .btn { margin-top: 14px; }
 
 /* ---------- Hero ---------- */
 
@@ -414,6 +489,25 @@ section { padding-top: clamp(56px, 8vw, 100px); padding-bottom: clamp(56px, 8vw,
   min-height: 1.2em;
 }
 
+.plan-yearly-note .was {
+  text-decoration: line-through;
+  color: var(--muted-2);
+  margin-right: 6px;
+}
+
+.save-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--sky-soft);
+  color: var(--sky);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
 .plan-list {
   list-style: none;
   margin: 26px 0 0;
@@ -565,6 +659,8 @@ section { padding-top: clamp(56px, 8vw, 100px); padding-bottom: clamp(56px, 8vw,
 
 @media (max-width: 860px) {
   .nav-links { display: none; }
+  .header-actions > .btn { display: none; }
+  .nav-toggle { display: flex; }
   .hero .wrap { grid-template-columns: 1fr; }
   .stack-diagram { margin-top: 8px; }
   .feature-grid { grid-template-columns: 1fr; }

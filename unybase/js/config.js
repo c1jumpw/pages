@@ -7,31 +7,27 @@
 
 window.UNYBASE_CONFIG = {
   /* ----------------------------------------------------------
-   * CHECKOUT LINKS — REPLACE BEFORE LAUNCH
-   * Drop in the four Stripe Payment Links (or System.io checkout
-   * URLs) below, one per plan/billing-cycle combination.
-   * Until replaced, the "Complete Setup" button is a disabled
-   * placeholder and will not link anywhere.
+   * CHECKOUT LINKS — System.io
+   * Each link's own checkout page lets the customer pick monthly
+   * or annual billing, so there's one URL per plan (not per
+   * plan+cycle). Our own toggle above is just for previewing the
+   * price before they get there.
    * -------------------------------------------------------- */
   checkoutUrls: {
-    standardMonthly: null, // e.g. "https://buy.stripe.com/xxxxxxxxxxxx" -> CHECKOUT_URL_STANDARD_MONTHLY
-    standardYearly: null, //   -> CHECKOUT_URL_STANDARD_YEARLY
-    premiumMonthly: null, //   -> CHECKOUT_URL_PREMIUM_MONTHLY
-    premiumYearly: null, //   -> CHECKOUT_URL_PREMIUM_YEARLY
+    basic: "https://main-unywebs.systeme.io/d9fae112",
+    premium: "https://main-unywebs.systeme.io/d9fae112-d0f105db",
   },
 
   /* ----------------------------------------------------------
    * PLANS — pricing + feature lists shown on the pricing
    * section and reused on the checkout page.
-   * Yearly prices below assume a 2-months-free annual discount;
-   * adjust to whatever the final pricing model is.
    * -------------------------------------------------------- */
   plans: {
-    standard: {
-      name: "Standard",
+    basic: {
+      name: "Basic",
       for: "Best for: Single web apps and early-stage products.",
-      monthly: 29,
-      yearly: 290, // billed once per year ($24.17/mo equivalent)
+      monthly: 29.95,
+      yearly: 299.95,
       features: [
         "Managed database & authentication",
         "File storage",
@@ -43,10 +39,10 @@ window.UNYBASE_CONFIG = {
     premium: {
       name: "Premium",
       for: "Best for: Growing products and teams running multiple apps.",
-      monthly: 59,
-      yearly: 590, // billed once per year ($49.17/mo equivalent)
+      monthly: 49.95,
+      yearly: 499.95,
       features: [
-        "Everything in Standard",
+        "Everything in Basic",
         "Expanded resource limits",
         "Priority infrastructure support",
         "Proactive diagnostics on app performance",
@@ -59,17 +55,16 @@ window.UNYBASE_CONFIG = {
 
 /* ============================================================
  * POST-PAYMENT AUTOMATION — NOT YET WIRED UP
- * Once a checkout link above is completed by a customer, the
- * following steps still need to be connected (out of scope for
- * this build pass):
+ * The checkout links above go live to System.io, but what happens
+ * after a customer pays still needs to be connected:
  *
- *   1. Stripe webhook (or a Zapier trigger watching Stripe) fires
- *      on `checkout.session.completed`.
- *   2. That trigger sends a Resend transactional email
- *      confirming the plan and billing cycle purchased.
- *   3. The same trigger adds/updates the customer in the
- *      correct System.io list/tag for their plan.
+ *   1. A System.io (or Zapier watching System.io/Stripe) trigger
+ *      fires when a purchase completes.
+ *   2. That trigger sends a Resend transactional email confirming
+ *      the plan and billing cycle purchased.
+ *   3. The same trigger tags/adds the customer to the correct
+ *      System.io list for their plan (Basic vs Premium).
  *
- * None of this logic lives in the static site — it belongs in a
- * webhook handler or a Zapier zap connected to the Stripe account.
+ * None of this logic lives in the static site — it belongs in
+ * System.io's automation rules or a connected Zapier zap.
  * ============================================================ */
